@@ -168,4 +168,3 @@ plt.plot(best_score_progress)
 plt.xlabel('Generation')
 plt.ylabel('Best Fitness - route length - in Generation')
 # plt.show()
-

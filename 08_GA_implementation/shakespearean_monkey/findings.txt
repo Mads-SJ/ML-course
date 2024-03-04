@@ -1,0 +1,18 @@
+hill climbing:
+Der er ikke nogen grund til at generere for mange strings i starten.
+Det er find neighbor der laver det hårde arbejde, og man kan derved spare en del
+tid på ikke at skulle generere en masse strings i starten.
+Tid:
+start 100 strings
+finder target på 0.127s med 5652 "mutationer". Antal mutationer varierer fra 
+gang til gang.
+
+GA:
+Virker umiddelbart langsommere, da man skal beregne fitness for langt flere strings
+i gennemsnit. Igen virker det ikke til at flere strings er mere effektivt, da det
+blot kræver flere beregninger.
+Tid:
+100 strings, 70 generationer finder target på 0.235s
+breed:
+Fungerer bedre, hvis split mellem mum & dad er ved tilfædigt index i stedet for
+50/50.

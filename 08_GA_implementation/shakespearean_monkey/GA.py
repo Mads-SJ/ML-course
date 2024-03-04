@@ -89,6 +89,6 @@ def find_best_fitness(strings):
 # measure time
 start = time.time()
 mutation_rate = 0.5
-strings = evolve(100, 70)
+strings = evolve(1000, 70)
 best_string, best_fitness = find_best_fitness(strings)
 print("Time:", time.time() - start, "seconds")
