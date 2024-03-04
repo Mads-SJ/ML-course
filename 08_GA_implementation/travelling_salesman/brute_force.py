@@ -40,4 +40,7 @@ def brute_force(number_of_cities):
 
     return shortest_route, shortest_distance
 
-print(brute_force(1000))
+print(brute_force(8))
+# 8! = 40.320 ruter - tager 20-30 sekunder
+# 9! = 362.880 ruter - tager 1-2 minutter
+# 10! = 3.6 mio. ruter - tager 20-30 minutter
