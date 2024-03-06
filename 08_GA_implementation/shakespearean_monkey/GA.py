@@ -68,11 +68,14 @@ def crossover(generation):
 
 def evolve(size, epochs):
     current_gen = generate_strings(size)
+    gen_counter = 0
     for i in range(epochs):
         current_gen = crossover(current_gen)
         best_string, best_fitness = find_best_fitness(current_gen)
         print(best_string, best_fitness)
+        gen_counter += 1
         if (best_fitness == len(target)):
+            print("Generations:", gen_counter)
             break
     return current_gen
 
@@ -88,7 +91,7 @@ def find_best_fitness(strings):
 
 # measure time
 start = time.time()
-mutation_rate = 0.5
-strings = evolve(1000, 70)
+mutation_rate = 0.1
+strings = evolve(10000, 100)
 best_string, best_fitness = find_best_fitness(strings)
 print("Time:", time.time() - start, "seconds")

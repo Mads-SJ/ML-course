@@ -21,16 +21,18 @@ y = data[2]
 # plt.show()
 
 
-def createRandomRoute():
-    tour = [[i] for i in range(1000)]
+def createRandomRoute(number_of_citites):
+    tour = [[i] for i in range(number_of_citites)]
     random.shuffle(tour)
     return tour
 
 # plot the tour - Adjust range 0..len, if you want to plot only a part of the tour.
-def plotCityRoute(route, start, end):
-    for i in range(start, end):
-        plt.plot(x[i:i + 2], y[i:i + 2], 'ro-')
-    plt.show()
+def plotCityRoute(route):
+    plt.figure()
+    for i in range(len(route) - 1):
+        x_coordinates = [x[route[i]], x[route[i + 1]]] # x for city i and city i+1
+        y_coordinates = [y[route[i]], y[route[i + 1]]] # y for city i and city i+1
+        plt.plot(x_coordinates, y_coordinates, 'ro-') # draw a line between the two cities
 
 # Alternativ kode:
 #  for i in range(0, len(route)-1):              
@@ -135,20 +137,21 @@ def find_best_route(generation):
 def create_routes(number_of_routes):
     routes = []
     for i in range(number_of_routes):
-        routes.append(createRandomRoute())
+        routes.append(createRandomRoute(number_of_citites))
     return routes
 
 # distance between city number 100 and city number 105
 #dist= distancebetweenCities(x[100], y[100], x[105], y[105])
 #print('Distance, % target: ', dist)
 
-number_of_citites = 1000
-size = 200
-epochs = 10
+number_of_citites = 50
+size = 500
+epochs = 100
 current_gen = create_routes(size)
 best_score_progress = []  # Tracks progress
 
 best_route, best_score = find_best_route(current_gen)
+plotCityRoute(best_route)
 best_score_progress.append(best_score)
 print('Starting best score, % target: ', best_score)
 for i in range(epochs):
@@ -157,12 +160,11 @@ for i in range(epochs):
     best_score_progress.append(best_score)
     print(i, best_score)
 
-
-best_route, best_score = find_best_route(current_gen)
 # GA has completed required generation
 print('End best score, % target: ', best_score)
 
-plotCityRoute(best_route, 0, 100)
+plotCityRoute(best_route)
+plt.show()
 
 plt.plot(best_score_progress)
 plt.xlabel('Generation')
