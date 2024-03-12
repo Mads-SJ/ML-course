@@ -110,6 +110,9 @@ def breed2(mum, dad):
     remaining_citites = [city for city in dad if city not in child]
     child.extend(remaining_citites)
 
+    if random.random() < 0.1:
+        mutate(child)
+
     return child
 
 def crossover(generation):
@@ -144,7 +147,7 @@ def create_routes(number_of_routes):
 #dist= distancebetweenCities(x[100], y[100], x[105], y[105])
 #print('Distance, % target: ', dist)
 
-number_of_citites = 50
+number_of_citites = 10
 size = 500
 epochs = 100
 current_gen = create_routes(size)

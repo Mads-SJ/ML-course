@@ -1,0 +1,25 @@
+initial:
+No scaling
+insert avg age on missing
+test size = 0.2
+hidden layers (2, 2)
+100 iterations
+
+accuracy = 0.59
+
+1:
+With scaling hiddenlayers (10, 10)
+1000 iterations
+accuracy = 0.69
+precision = 0.66
+
+2:
+hidden layers 100 * 5
+activation = relu
+iterations = 10000
+accuracy = 0.72
+
+3:
+drop na rows
+accuracy = 0.66
+precision 0.75
