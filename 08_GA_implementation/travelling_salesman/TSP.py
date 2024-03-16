@@ -147,7 +147,7 @@ def create_routes(number_of_routes):
 #dist= distancebetweenCities(x[100], y[100], x[105], y[105])
 #print('Distance, % target: ', dist)
 
-number_of_citites = 10
+number_of_citites = 50
 size = 500
 epochs = 100
 current_gen = create_routes(size)
