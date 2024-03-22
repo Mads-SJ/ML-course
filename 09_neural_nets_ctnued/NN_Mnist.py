@@ -19,14 +19,16 @@ mlp = MLPClassifier(
 mlp.fit(X_train, y_train)
 
 predictions = mlp.predict(X_test)
+print(predictions)
 matrix = confusion_matrix(y_test, predictions)
+print(matrix)
 print (classification_report(y_test,predictions))
 
 # plot predictions for the first 10 images in the test set
 fig, axes = plt.subplots(2, 5, figsize=(5, 3))
 for i, ax in enumerate(axes.flat):
     ax.imshow(X_test[i].reshape(8, 8), cmap='gray')
-    ax.set_title(y_test[i])
+    ax.set_title(f"tar: {y_test[i]}, pre: {predictions[i]}")
     ax.axis('off')
 
 plt.show()

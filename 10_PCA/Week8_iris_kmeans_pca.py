@@ -71,4 +71,4 @@ plt.subplot(1, 2, 2)
 plt.scatter(X_proj[:,0], X_proj[:,1], c=colormap[labels], s=40)
 plt.title('K Mean Classification')
 
-plt.show();
+plt.show()
