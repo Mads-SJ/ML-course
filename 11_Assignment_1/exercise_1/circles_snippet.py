@@ -21,3 +21,19 @@ grouped = df.groupby('label')
 for key, group in grouped:
     group.plot(ax=ax, kind='scatter', x='x', y='y', label=key, color=colors[key])
 pyplot.show()
+
+# split the dataset into training and test sets
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_state=42)
+
+# support vector machine
+from sklearn import svm
+
+# svc = svm.LinearSVC(C=0.1)
+# svc = svm.SVC(kernel='poly', degree=7, C=10)
+svc = svm.SVC(kernel='rbf', gamma=2, C=1)
+svc.fit(X_train, y_train)
+
+from plot_util import plot_classifier_prediction
+
+plot_classifier_prediction(svc, X_train, y_train, 'SVM')
