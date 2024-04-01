@@ -29,11 +29,16 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_sta
 # support vector machine
 from sklearn import svm
 
-# svc = svm.LinearSVC(C=0.1)
-# svc = svm.SVC(kernel='poly', degree=7, C=10)
-svc = svm.SVC(kernel='rbf', gamma=2, C=1)
+svc_lin = svm.LinearSVC(C=0.1)
+svc_poly = svm.SVC(kernel='poly', degree=2, C=10)
+svc = svm.SVC(kernel='rbf', gamma=1, C=10)
+
+svc_lin.fit(X_train, y_train)
+svc_poly.fit(X_train, y_train)
 svc.fit(X_train, y_train)
 
 from plot_util import plot_classifier_prediction
 
-plot_classifier_prediction(svc, X_train, y_train, 'SVM')
+plot_classifier_prediction(svc_lin, X_train, y_train, 'Linear SVM')
+plot_classifier_prediction(svc_poly, X_train, y_train, 'Polynomial SVM')
+plot_classifier_prediction(svc, X_train, y_train, 'RBF SVM')
