@@ -6,6 +6,7 @@ Created on Mon December 9 10:41:37 2019
 """
 
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
 from sklearn import decomposition
 from sklearn import datasets
 from sklearn import svm
@@ -26,6 +27,10 @@ for i in range(20):
     ax.set_title(i, fontsize='small', color='green')
 
 plt.show()
+
+print(faces.target)
+faces.target = np.where(faces.target == 10, 1, 0)
+print(faces.target)
 
 # As usual, then lest split the dataset in a train and a test dataset.
 X_train, X_test, y_train, y_test = train_test_split(faces.data,
@@ -62,8 +67,13 @@ print(X_test_pca.shape)
 
 # We now use a SVM to make a classification
 # kernel default = rbf, gamma = kernel coefficient
-clf = svm.SVC(C=5., gamma=0.001)
+clf = svm.SVC(C=5., gamma=0.001, random_state=0)
 clf.fit(X_train_pca, y_train)
+
+rlf = RandomForestClassifier(n_estimators=10, random_state=0)
+rlf.fit(X_train_pca, y_train)
+
+
 
 # It is now time to evaluate how well this classification did.
 # Lets look at the first 25 pics in he test set.
@@ -72,11 +82,12 @@ for i in range(25):
     ax = fig.add_subplot(5, 5, i + 1, xticks=[], yticks=[])
     ax.imshow(X_test[i].reshape(faces.images[0].shape),
               cmap=plt.cm.bone)
-    y_pred = clf.predict(X_test_pca[i, np.newaxis])[0]
+    y_pred = rlf.predict(X_test_pca[i, np.newaxis])[0]
     color = ('blue' if y_pred == y_test[i] else 'red')
     ax.set_title(y_pred, fontsize='small', color=color)
 
 plt.show()
 
-
-
+from sklearn import metrics
+y_pred = rlf.predict(X_test_pca)
+print(metrics.classification_report(y_test, y_pred))

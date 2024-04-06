@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 import seaborn as sns
@@ -14,14 +15,12 @@ data = pd.read_csv(r"C:\Users\Mads\Desktop\datamatiker\4. semester\ML\ML-code\11
 #remove redundant columns
 data.drop(["PassengerId", "Name", "Ticket", "Cabin"], axis=1, inplace=True)
 
-print(data.shape)
-data.dropna(inplace=True)
-print(data.shape)
-# avg = data["Age"].mean()
-# data["Age"].fillna(avg, inplace=True)
-
 data.replace(["male", "female"], [0, 1], inplace=True)
 data.replace(["S", "C", "Q"], [0, 1, 2], inplace=True)
+
+print(data.shape)
+# data.dropna(inplace=True)
+print(data.shape)
 
 X = data.drop(["Survived"], axis=1)
 y = data["Survived"]
@@ -54,8 +53,9 @@ axs[1, 0].set_xlabel('Pclass')
 axs[1, 0].set_ylabel('Count')
 
 axs[1, 0].legend(['Died', 'Survived'])
+axs[1, 0].set_title('Pclass distribution')
 
-# plt.show()
+plt.show()
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2)
 
@@ -70,13 +70,27 @@ scaler.fit(X_train)
 X_train = scaler.transform(X_train)
 X_test = scaler.transform(X_test)
 
-rfc = RandomForestClassifier(n_estimators=10, random_state=0)
+lrc = LogisticRegression(random_state=0)
+lrc.fit(X_train, y_train)
+
+print("LOGISTIC REGRESSION CLASSIFIER")
+predictions = lrc.predict(X_test)
+matrix = confusion_matrix(y_test, predictions)
+print(matrix)
+TN, FP, FN, TP = matrix.ravel()
+print("Presicion: ", TP/(TP+FP))
+print("Recall: ", TP/(TP+FN))
+print("Accuracy: ", (TP+TN)/(TP+FP+FN+TN))
+print(classification_report(y_test,predictions))
+
+rfc = RandomForestClassifier(n_estimators=100, max_depth=4, random_state=0)
 
 rfc.fit(X_train, y_train)
 
 print("RANDOM FOREST CLASSIFIER")
 predictions = rfc.predict(X_test)
 matrix = confusion_matrix(y_test, predictions)
+print(matrix)
 TN, FP, FN, TP = matrix.ravel()
 print("Presicion: ", TP/(TP+FP))
 print("Recall: ", TP/(TP+FN))
@@ -84,7 +98,7 @@ print("Accuracy: ", (TP+TN)/(TP+FP+FN+TN))
 print(classification_report(y_test,predictions))
 
 mlp = MLPClassifier(
-    hidden_layer_sizes=(10, 10, 10), 
+    hidden_layer_sizes=(10, 10),
     max_iter=1000,
     activation='relu',
     random_state=0
@@ -95,6 +109,7 @@ mlp.fit(X_train, y_train)
 print("MLP CLASSIFIER")
 predictions = mlp.predict(X_test)
 matrix = confusion_matrix(y_test, predictions)
+print(matrix)
 TN, FP, FN, TP = matrix.ravel()
 print("Presicion: ", TP/(TP+FP))
 print("Recall: ", TP/(TP+FN))
