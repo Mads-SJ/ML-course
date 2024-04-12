@@ -26,7 +26,7 @@ for i in range(20):
     ax.imshow(faces.images[i], cmap=plt.cm.bone)
     ax.set_title(i, fontsize='small', color='green')
 
-plt.show()
+#plt.show()
 
 print(faces.target)
 faces.target = np.where(faces.target == 10, 1, 0)
@@ -55,7 +55,7 @@ for i in range(6):
     ax.imshow(pca.components_[i].reshape(faces.images[0].shape),
               cmap=plt.cm.bone)
 
-plt.show()
+#plt.show()
 
 # With a PCA projection, the original pictures, train and test,
 # can now be projected onto the PCA basis:
@@ -86,8 +86,8 @@ for i in range(25):
     color = ('blue' if y_pred == y_test[i] else 'red')
     ax.set_title(y_pred, fontsize='small', color=color)
 
-plt.show()
+#plt.show()
 
 from sklearn import metrics
-y_pred = rlf.predict(X_test_pca)
+y_pred = clf.predict(X_test_pca)
 print(metrics.classification_report(y_test, y_pred))
