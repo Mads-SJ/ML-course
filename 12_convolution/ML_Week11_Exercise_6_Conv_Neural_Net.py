@@ -5,6 +5,7 @@ Created on Wed Nov 16 17:43:34 2021
 @author: sila
 """
 
+
 # CODE FROM NOTEBOOK, Exercise 6, ML WEEK 9
 
 # Deep Learning Neural Network for the CIFAR-10 dataset
