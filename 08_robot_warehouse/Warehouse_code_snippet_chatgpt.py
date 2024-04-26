@@ -15,7 +15,6 @@ warehouse = initialize_warehouse()
 
 
 '''Next, we add a function to place boxes at specific positions. Let's assume each box can be represented by a unique identifier or a specific value.'''
-
 def place_box(warehouse, position, box_id):
     x, y, z = position  # Unpack the position tuple
     if warehouse[x][y][z] is None:
