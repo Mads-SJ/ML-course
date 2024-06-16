@@ -57,7 +57,6 @@ def breed(mum, dad):
 
 def crossover(generation):
     elites = find_elites(generation, 0.2)
-    # next_gen = elites
     next_gen = []
     
     for i in range(len(generation)):
@@ -65,19 +64,6 @@ def crossover(generation):
         dad = elites[random.randint(0, len(elites) - 1)]
         next_gen.append(breed(mum, dad))
     return next_gen
-
-def evolve(size, epochs):
-    current_gen = generate_strings(size)
-    gen_counter = 0
-    for i in range(epochs):
-        current_gen = crossover(current_gen)
-        best_string, best_fitness = find_best_fitness(current_gen)
-        print(best_string, best_fitness)
-        gen_counter += 1
-        if (best_fitness == len(target)):
-            print("Generations:", gen_counter)
-            break
-    return current_gen
 
 def find_best_fitness(strings):
     best_fitness = 0
@@ -89,9 +75,23 @@ def find_best_fitness(strings):
             best_string = strings[i]
     return best_string, best_fitness
 
+
+def evolve(size, epochs):
+    current_gen = generate_strings(size)
+    gen_counter = 0
+    best_string, best_fitness = find_best_fitness(current_gen)
+    for _ in range(epochs):
+        current_gen = crossover(current_gen)
+        best_string, best_fitness = find_best_fitness(current_gen)
+        print(best_string, best_fitness)
+        gen_counter += 1
+        if (best_fitness == len(target)):
+            print("Generations:", gen_counter)
+            break
+    return best_string
+
 # measure time
 start = time.time()
 mutation_rate = 0.1
-strings = evolve(10000, 100)
-best_string, best_fitness = find_best_fitness(strings)
+result = evolve(1000, 100)
 print("Time:", time.time() - start, "seconds")
